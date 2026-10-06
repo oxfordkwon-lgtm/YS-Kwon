@@ -9,11 +9,15 @@
   textarea { width: 100%; height: 180px; padding: 8px; font-size: 16px; box-sizing: border-box; }
   button { margin-top: 8px; padding: 8px 20px; font-size: 16px; cursor: pointer; }
   #result { margin-top: 16px; font-size: 18px; line-height: 1.7; }
+  #limit { width: 100px; padding: 4px; font-size: 16px; }
+  .over { color: red; }
 </style>
 </head>
 <body>
   <h1>글자수 세기</h1>
   <textarea id="input" placeholder="여기에 글을 입력하세요"></textarea>
+  <br>
+  <label>제한 글자수(공백 포함): <input type="number" id="limit" min="0"></label>
   <br>
   <button id="btn">글자수 세기</button>
   <div id="result"></div>
@@ -23,8 +27,10 @@
       var text = document.getElementById('input').value;
       var withSpace = Array.from(text).length;
       var withoutSpace = Array.from(text.replace(/\s/g, '')).length;
+      var limitValue = document.getElementById('limit').value;
+      var over = limitValue !== '' && withSpace > Number(limitValue);
       document.getElementById('result').innerHTML =
-        '공백 포함: <b>' + withSpace + '</b>자<br>' +
+        '공백 포함: <b' + (over ? ' class="over"' : '') + '>' + withSpace + '</b>자<br>' +
         '공백 제외: <b>' + withoutSpace + '</b>자';
     });
   </script>
